@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Быстрый брифинг по клиенту | Telegram-бот для отдела продаж</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0C447C;
+  --secondary: #185FA5;
+  --purple: #3C3489;
+  --teal: #085041;
+  --amber: #633806;
+  --coral: #993C1D;
+  --bg-light: #FAFAF9;
+  --text-primary: #1A1A1A;
+  --text-secondary: #555555;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  line-height: 1.6;
+  background: var(--bg-light);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: white;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+.cta-button {
+  background: var(--primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.cta-button-large {
+  padding: 18px 48px;
+  font-size: 18px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #F0F5FF 0%, white 100%);
+  padding: 120px 0 80px;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.hero .subheading {
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.hero-visual {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.phone-mockup {
+  max-width: 300px;
+  margin: 0 auto;
+  background: #F5F5F5;
+  border-radius: 30px;
+  padding: 16px;
+  border: 8px solid #333;
+}
+
+.phone-screen {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 400px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.telegram-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.bot-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.message {
+  background: #E6F1FB;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+/* Section */
+section {
+  padding: 80px 0;
+}
+
+section h2 {
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-intro {
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto 48px;
+}
+
+/* Pain Points */
+.pain-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.pain-card {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+
+.pain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.pain-card .number {
+  font-size: 48px;
+  font-weight: 600;
+  color: #E5E5E5;
+  margin-bottom: 16px;
+}
+
+.pain-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.pain-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* How it works */
+.how-it-works {
+  background: white;
+}
+
+.diagram-container {
+  margin: 48px 0;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 auto 16px;
+}
+
+.step p {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+/* Features */
+.features-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  background: white;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.feature-header {
+  padding: 24px 32px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.feature-header:hover {
+  background: #F8F8F8;
+}
+
+.feature-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.feature-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.feature-color.coral { background: #FAECE7; border: 2px solid var(--coral); }
+.feature-color.blue { background: #E6F1FB; border: 2px solid var(--primary); }
+.feature-color.teal { background: #E1F5EE; border: 2px solid var(--teal); }
+.feature-color.amber { background: #FAEEDA; border: 2px solid var(--amber); }
+.feature-color.purple { background: #EEEDFE; border: 2px solid var(--purple); }
+
+.feature-toggle {
+  font-size: 24px;
+  color: var(--text-secondary);
+  transition: transform 0.3s;
+}
+
+.feature-item.active .feature-toggle {
+  transform: rotate(180deg);
+}
+
+.feature-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.feature-content-inner {
+  padding: 0 32px 24px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Example */
+.example {
+  background: linear-gradient(135deg, #F0F5FF 0%, white 100%);
+}
+
+.example-image {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-hover);
+}
+
+.example-screenshot {
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(135deg, #E6F1FB 0%, #F0F5FF 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+.example-caption {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+/* Roles */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.role-card {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.role-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.role-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.role-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  background: #F0F5FF;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.cta-section h2 {
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+.cta-section .note {
+  margin-top: 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.cta-section .secondary-link {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cta-section .secondary-link:hover {
+  text-decoration: underline;
+}
+
+/* FAQ */
+.faq {
+  background: white;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid #E5E5E5;
+  padding: 24px 0;
+  cursor: pointer;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.faq-toggle {
+  font-size: 20px;
+  color: var(--text-secondary);
+  transition: transform 0.3s;
+}
+
+.faq-item.active .faq-toggle {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: var(--text-secondary);
+  padding-top: 0;
+}
+
+.faq-answer-inner {
+  padding-top: 16px;
+  line-height: 1.8;
+}
+
+/* Footer */
+footer {
+  background: #1A1A1A;
+  color: white;
+  padding: 60px 0 30px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.footer-column p,
+.footer-column a {
+  color: #999;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 24px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+    transition: right 0.3s;
+    z-index: 999;
+  }
+
+  nav.active {
+    right: 0;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .pain-cards,
+  .steps,
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+
+  .hero {
+    padding: 80px 0 48px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-content">
+    <div class="logo">Быстрый брифинг по клиенту</div>
+    <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+      <a href="#how-it-works" onclick="closeMenu()">Как работает</a>
+      <a href="#features" onclick="closeMenu()">Что получаешь</a>
+      <a href="#example" onclick="closeMenu()">Примеры</a>
+      <a href="#cta" onclick="closeMenu()">Начать работу</a>
+      <a href="#cta" class="cta-button" onclick="closeMenu()">Подключить бота</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div>
+        <h1>От 2 часов ручного поиска до 5 минут в Telegram</h1>
+        <p class="subheading">Внутренний AI-инструмент для подготовки к встречам с клиентами</p>
+        <a href="#cta" class="cta-button cta-button-large">Начать использовать</a>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="telegram-header">
+              <div class="bot-avatar">🤖</div>
+              <div>
+                <strong>Брифинг бот</strong><br>
+                <small style="color: #999;">онлайн</small>
+              </div>
+            </div>
+            <div class="message">/brief Северсталь</div>
+            <div class="message" style="background: #DCF8C6;">
+              ✅ Запускаю поиск...<br>
+              📊 Собираю данные из источников<br>
+              ⏱ ~4 минуты
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pain Points -->
+<section id="pain">
+  <div class="container">
+    <h2>Знакомая ситуация?</h2>
+    <div class="pain-cards">
+      <div class="pain-card fade-in">
+        <div class="number">01</div>
+        <h3>Встреча через час</h3>
+        <p>А ты не знаешь кто их CIO, какие у них системы внедрены, и о чём вообще с ними говорить</p>
+      </div>
+      <div class="pain-card fade-in">
+        <div class="number">02</div>
+        <h3>10 вкладок в браузере</h3>
+        <p>Гуглишь компанию по TAdviser, LinkedIn, Habr, hh.ru — собираешь информацию по крупицам 1-2 часа</p>
+      </div>
+      <div class="pain-card fade-in">
+        <div class="number">03</div>
+        <h3>Потеря доверия</h3>
+        <p>Приходишь неподготовленным — ЛПР видит это в первые 5 минут, и сделка начинается с минуса</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how-it-works" class="how-it-works">
+  <div class="container">
+    <h2>Как работает бот</h2>
+    <p class="section-intro">Бот собирает информацию из открытых источников и структурирует её за 3–7 минут</p>
+    
+    <div class="diagram-container">
+      <svg width="100%" viewBox="0 0 680 640" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <rect x="220" y="20" width="240" height="48" rx="8" fill="#F0F0EE" stroke="#CCC" stroke-width="0.5"/>
+        <text font-family="sans-serif" font-size="13" font-weight="500" fill="#333" x="340" y="36" text-anchor="middle" dominant-baseline="central">Ввод в Telegram</text>
+        <text font-family="sans-serif" font-size="11" fill="#666" x="340" y="54" text-anchor="middle" dominant-baseline="central">/brief Северсталь</text>
+        <line x1="340" y1="68" x2="340" y2="96" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <rect x="180" y="96" width="320" height="56" rx="8" fill="#FAECE7" stroke="#FCD5C8" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#712B13" x="340" y="116" text-anchor="middle" dominant-baseline="central">Блок 0 — Профиль компании</text>
+        <text font-family="sans-serif" font-size="11" fill="#993C1D" x="340" y="134" text-anchor="middle" dominant-baseline="central">Отрасль · новости · боли · контекст</text>
+        <line x1="340" y1="152" x2="340" y2="180" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <rect x="180" y="180" width="320" height="48" rx="8" fill="#F5F0FF" stroke="#C9C2F5" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#3C3489" x="340" y="196" text-anchor="middle" dominant-baseline="central">Планировщик запросов</text>
+        <text font-family="sans-serif" font-size="11" fill="#534AB7" x="340" y="214" text-anchor="middle" dominant-baseline="central">3 группы поисков параллельно</text>
+        <line x1="200" y1="228" x2="110" y2="272" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="340" y1="228" x2="340" y2="272" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="480" y1="228" x2="570" y2="272" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <rect x="28" y="272" width="168" height="104" rx="8" fill="#F0F5FF" stroke="#C5D8F7" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#0C447C" x="112" y="294" text-anchor="middle" dominant-baseline="central">Блок 1</text>
+        <text font-family="sans-serif" font-size="11" fill="#185FA5" x="112" y="312" text-anchor="middle" dominant-baseline="central">C-Level</text>
+        <text font-family="sans-serif" font-size="11" fill="#185FA5" x="112" y="328" text-anchor="middle" dominant-baseline="central">TAdviser · GlobalCIO</text>
+        <text font-family="sans-serif" font-size="11" fill="#185FA5" x="112" y="344" text-anchor="middle" dominant-baseline="central">LinkedIn · Habr</text>
+        <text font-family="sans-serif" font-size="11" fill="#888" x="112" y="362" text-anchor="middle" dominant-baseline="central">≤ 3 года</text>
+        <rect x="256" y="272" width="168" height="104" rx="8" fill="#F0FAF6" stroke="#9FE1CB" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#085041" x="340" y="294" text-anchor="middle" dominant-baseline="central">Блок 2</text>
+        <text font-family="sans-serif" font-size="11" fill="#0F6E56" x="340" y="312" text-anchor="middle" dominant-baseline="central">IT-ландшафт</text>
+        <text font-family="sans-serif" font-size="11" fill="#0F6E56" x="340" y="328" text-anchor="middle" dominant-baseline="central">TAdviser · ITWorld</text>
+        <text font-family="sans-serif" font-size="11" fill="#0F6E56" x="340" y="344" text-anchor="middle" dominant-baseline="central">Habr · GlobalCIO</text>
+        <text font-family="sans-serif" font-size="11" fill="#888" x="340" y="362" text-anchor="middle" dominant-baseline="central">≤ 5 лет</text>
+        <rect x="484" y="272" width="168" height="104" rx="8" fill="#FFFBF0" stroke="#FAC775" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#633806" x="568" y="294" text-anchor="middle" dominant-baseline="central">Блок 3</text>
+        <text font-family="sans-serif" font-size="11" fill="#854F0B" x="568" y="312" text-anchor="middle" dominant-baseline="central">HR-сигналы</text>
+        <text font-family="sans-serif" font-size="11" fill="#854F0B" x="568" y="328" text-anchor="middle" dominant-baseline="central">hh.ru · SuperJob</text>
+        <text font-family="sans-serif" font-size="11" fill="#854F0B" x="568" y="344" text-anchor="middle" dominant-baseline="central">IT-вакансии</text>
+        <text font-family="sans-serif" font-size="11" fill="#888" x="568" y="362" text-anchor="middle" dominant-baseline="central">актуальные</text>
+        <line x1="112" y1="376" x2="260" y2="432" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="340" y1="376" x2="340" y2="432" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="568" y1="376" x2="420" y2="432" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <rect x="160" y="432" width="360" height="52" rx="8" fill="#F5F0FF" stroke="#C9C2F5" stroke-width="1"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#3C3489" x="340" y="452" text-anchor="middle" dominant-baseline="central">AI-синтез (Claude)</text>
+        <text font-family="sans-serif" font-size="11" fill="#534AB7" x="340" y="470" text-anchor="middle" dominant-baseline="central">Точки входа · как говорить · конкуренты</text>
+        <line x1="340" y1="484" x2="340" y2="512" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+        <rect x="160" y="512" width="360" height="96" rx="8" fill="#F0F0EE" stroke="#CCC" stroke-width="0.5"/>
+        <text font-family="sans-serif" font-size="13" font-weight="600" fill="#333" x="340" y="534" text-anchor="middle" dominant-baseline="central">Отчёт в Telegram</text>
+        <text font-family="sans-serif" font-size="11" fill="#666" x="340" y="554" text-anchor="middle" dominant-baseline="central">Структурированный формат с разделами</text>
+        <text font-family="sans-serif" font-size="11" fill="#666" x="340" y="572" text-anchor="middle" dominant-baseline="central">Время: 3–7 минут</text>
+        <text font-family="sans-serif" font-size="11" fill="#666" x="340" y="590" text-anchor="middle" dominant-baseline="central">Источники указаны для каждого блока</text>
+      </svg>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <p>Отправляешь команду<br>/brief Название компании</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <p>Ждёшь 3–7 минут</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <p>Получаешь структурированный отчёт</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="container">
+    <h2>Что ты получаешь</h2>
+    <div class="features-accordion">
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color coral"></span>
+            <span>Блок 0: Профиль компании</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            Отрасль, масштаб, актуальные новости (до 6 месяцев), возможные боли и контекст для разговора. Источники: официальный сайт, РБК, Коммерсантъ, СПАРК.
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color blue"></span>
+            <span>Блок 1: C-Level руководство</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            CEO, CIO, CDO, CTO — имена, должности, источники. Данные не старее 3 лет. Источники: TAdviser, GlobalCIO, LinkedIn, Habr, Realnoevremya.
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color teal"></span>
+            <span>Блок 2: IT-ландшафт и портфель проектов</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            Внедрённые системы: ERP, DWH, BI, CRM, BPM, AI/ML. Интеграторы, годы проектов. Данные до 5 лет. Источники: TAdviser, IT-World, Habr, GlobalCIO.
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color amber"></span>
+            <span>Блок 3: HR-сигналы по найму</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            Открытые IT-вакансии как индикатор активных проектов цифровизации — с интерпретацией каждого сигнала. Источники: hh.ru, SuperJob.
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color purple"></span>
+            <span>Блок 4: Возможные конкуренты на площадке</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            Кто ещё работает с этим клиентом, какие интеграторы упоминаются в проектах, конкурентное поле.
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header" onclick="toggleFeature(this)">
+          <div class="feature-title">
+            <span class="feature-color purple"></span>
+            <span>Блок 5: AI-советник</span>
+          </div>
+          <span class="feature-toggle">▼</span>
+        </div>
+        <div class="feature-content">
+          <div class="feature-content-inner">
+            Точки входа для разговора, как лучше позиционироваться с этим клиентом, на что обратить внимание при первой встрече.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Example -->
+<section id="example" class="example">
+  <div class="container">
+    <h2>Как выглядит готовый отчёт</h2>
+    <p class="section-intro">Реальный брифинг по компании «Северсталь» — получен за 4 минуты прямо в Telegram</p>
+    <div class="example-image">
+      <div class="example-screenshot">
+        📱 Скриншот отчёта с 6 блоками<br>
+        (структурированные данные, источники, даты)
+      </div>
+      <p class="example-caption">Все данные структурированы, источники указаны, готов к использованию</p>
+    </div>
+  </div>
+</section>
+
+<!-- Roles -->
+<section id="roles">
+  <div class="container">
+    <h2>Кому подходит</h2>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon">👔</div>
+        <h3>Управляющий партнёр</h3>
+        <p>Подготовка к переговорам с ЛПР. Быстро понять контекст компании, кто принимает решения, какие у них боли и как правильно начать разговор</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💼</div>
+        <h3>Account Manager</h3>
+        <p>Быстрый пресейл и квалификация лидов. Оценить потенциал клиента, понять IT-ландшафт и определить точки входа за несколько минут</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎯</div>
+        <h3>Pre-sales специалист</h3>
+        <p>Анализ IT-ландшафта и точек входа. Понять технологический стек клиента, найти пробелы и подготовить предложение под конкретные потребности</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-section">
+  <div class="container">
+    <h2>Готов помочь отделу продаж выходить<br>на встречи подготовленными</h2>
+    <a href="https://t.me/your_bot" class="cta-button cta-button-large">Подключиться к боту</a>
+    <p class="note">Доступен всем сотрудникам отдела продаж</p>
+    <a href="#faq" class="secondary-link">Инструкция по использованию →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="container">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Откуда берутся данные?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Бот собирает информацию из открытых источников: TAdviser, GlobalCIO, LinkedIn, Habr, hh.ru, SuperJob и других профильных ресурсов
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Насколько актуальна информация?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Новости — до 6 месяцев, C-Level данные — до 3 лет, IT-ландшафт — до 5 лет, HR-сигналы — актуальные вакансии
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Можно ли сохранить отчёт для команды?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Да, отчёт приходит в Telegram и остаётся в истории чата. Можно переслать коллегам или сохранить в избранное
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Работает ли бот с зарубежными компаниями?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Бот оптимизирован для российских компаний и источников на русском языке. Для зарубежных компаний данные могут быть ограничены
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Как часто можно запрашивать брифинги?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Без ограничений. Запрашивайте брифинги перед каждой встречей или по мере необходимости
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h4>Быстрый брифинг по клиенту</h4>
+        <p>Внутренний AI-инструмент для подготовки к встречам с клиентами</p>
+      </div>
+      <div class="footer-column">
+        <h4>Ресурсы</h4>
+        <a href="#">Инструкция по использованию</a>
+        <a href="#">База знаний</a>
+        <a href="#">Поддержка</a>
+      </div>
+      <div class="footer-column">
+        <h4>Контакты</h4>
+        <p>Вопросы? Напишите в Telegram:<br><a href="https://t.me/support">@support</a></p>
+        <p>Email: <a href="mailto:support@company.com">support@company.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Навикон. Все права защищены
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu toggle
+function toggleMenu() {
+  const nav = document.getElementById('nav');
+  nav.classList.toggle('active');
+}
+
+function closeMenu() {
+  const nav = document.getElementById('nav');
+  nav.classList.remove('active');
+}
+
+// Feature accordion
+function toggleFeature(element) {
+  const item = element.parentElement;
+  const content = item.querySelector('.feature-content');
+  const isActive = item.classList.contains('active');
+  
+  // Close all
+  document.querySelectorAll('.feature-item').forEach(el => {
+    el.classList.remove('active');
+    el.querySelector('.feature-content').style.maxHeight = '0';
+  });
+  
+  // Open clicked if it wasn't active
+  if (!isActive) {
+    item.classList.add('active');
+    content.style.maxHeight = content.scrollHeight + 'px';
+  }
+}
+
+// FAQ accordion
+function toggleFaq(element) {
+  const answer = element.querySelector('.faq-answer');
+  const isActive = element.classList.contains('active');
+  
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(el => {
+    el.classList.remove('active');
+    el.querySelector('.faq-answer').style.maxHeight = '0';
+  });
+  
+  // Open clicked if it wasn't active
+  if (!isActive) {
+    element.classList.add('active');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Fade in on scroll
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
