@@ -382,14 +382,130 @@ section h2 {
 
 .example-screenshot {
   width: 100%;
-  height: 500px;
-  background: linear-gradient(135deg, #E6F1FB 0%, #F0F5FF 100%);
+  background: #E8EEF2;
   border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.tg-chat-header {
+  background: #185FA5;
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tg-chat-avatar {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
   font-size: 18px;
+  flex-shrink: 0;
+}
+
+.tg-chat-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+
+.tg-chat-info p {
+  font-size: 12px;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.tg-messages {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 540px;
+  overflow-y: auto;
+}
+
+.tg-msg-out {
+  align-self: flex-end;
+  background: #AECCF4;
+  padding: 8px 12px;
+  border-radius: 12px 12px 2px 12px;
+  color: #1A1A1A;
+  max-width: 60%;
+}
+
+.tg-msg-in {
+  align-self: flex-start;
+  background: white;
+  padding: 14px 16px;
+  border-radius: 2px 12px 12px 12px;
+  max-width: 88%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.tg-time {
+  font-size: 11px;
+  color: #999;
+  text-align: right;
+  margin-top: 6px;
+}
+
+.report-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.report-meta {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.report-block {
+  margin-bottom: 12px;
+}
+
+.report-block:last-child {
+  margin-bottom: 0;
+}
+
+.report-block-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.report-block-body {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.55;
+}
+
+.report-block-body ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.report-block-body li {
+  margin-bottom: 2px;
+}
+
+.report-source {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.report-hr {
+  border: none;
+  border-top: 1px solid #EBEBEB;
+  margin: 10px 0;
 }
 
 .example-caption {
@@ -888,10 +1004,118 @@ footer {
     <p class="section-intro">Реальный брифинг по компании «Северсталь» — получен за 4 минуты прямо в Telegram</p>
     <div class="example-image">
       <div class="example-screenshot">
-        📱 Скриншот отчёта с 6 блоками<br>
-        (структурированные данные, источники, даты)
+        <!-- Telegram header -->
+        <div class="tg-chat-header">
+          <div class="tg-chat-avatar">🤖</div>
+          <div class="tg-chat-info">
+            <h4>Быстрый брифинг</h4>
+            <p>бот · онлайн</p>
+          </div>
+        </div>
+
+        <!-- Chat messages -->
+        <div class="tg-messages">
+
+          <div class="tg-msg-out">
+            /brief Северсталь
+            <div class="tg-time">09:41</div>
+          </div>
+
+          <div class="tg-msg-in" style="color:#888; font-size:13px;">
+            ⏳ Собираю данные по компании Северсталь... (3–7 мин)
+            <div class="tg-time">09:41</div>
+          </div>
+
+          <div class="tg-msg-in">
+            <div class="report-title">📋 Брифинг: Северсталь</div>
+            <div class="report-meta">Готов за 4 мин 12 сек · апрель 2025</div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#993C1D;">🔴 Блок 0 — Профиль компании</div>
+              <div class="report-block-body">
+                Металлургия и горная добыча. ~45 000 сотрудников, выручка ≈ 700 млрд руб. (2024).
+                <ul>
+                  <li>Завершают программу импортозамещения ПО к Q3 2025</li>
+                  <li>Запустили собственную MES-систему на Череповецком заводе</li>
+                  <li>Активно растят внутреннюю IT-экспертизу</li>
+                </ul>
+              </div>
+              <div class="report-source">Источники: РБК, Коммерсантъ, СПАРК · до 6 мес.</div>
+            </div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#0C447C;">🔵 Блок 1 — C-Level руководство</div>
+              <div class="report-block-body">
+                <ul>
+                  <li><strong>CEO:</strong> Евгений Виноградов (с 2023)</li>
+                  <li><strong>CIO:</strong> Алексей Кузнецов (с 2022)</li>
+                  <li><strong>CDO:</strong> нет публичных данных</li>
+                </ul>
+              </div>
+              <div class="report-source">Источники: TAdviser, GlobalCIO, LinkedIn · до 3 лет</div>
+            </div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#085041;">🟢 Блок 2 — IT-ландшафт</div>
+              <div class="report-block-body">
+                <ul>
+                  <li><strong>ERP:</strong> SAP → активная миграция на российское решение</li>
+                  <li><strong>BI:</strong> Visiology, Qlik</li>
+                  <li><strong>AI/ML:</strong> внутренняя Data Lab, пилоты с YandexCloud</li>
+                </ul>
+              </div>
+              <div class="report-source">Источники: TAdviser, IT-World, Habr · до 5 лет</div>
+            </div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#633806;">🟡 Блок 3 — HR-сигналы</div>
+              <div class="report-block-body">
+                12 открытых IT-вакансий:
+                <ul>
+                  <li>4 × Data Engineer → активная Data Platform</li>
+                  <li>2 × ML Engineer → пилоты предиктивного обслуживания</li>
+                  <li>3 × 1С-разработчик → замена SAP</li>
+                </ul>
+              </div>
+              <div class="report-source">Источники: hh.ru, SuperJob · актуальные</div>
+            </div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#3C3489;">🟣 Блок 4 — Конкуренты на площадке</div>
+              <div class="report-block-body">
+                Т1 Интеграция, IBS, Innostage — упомянуты в проектах.<br>
+                Партнёры: Яндекс Облако, Ростелеком-ИТ.
+              </div>
+              <div class="report-source">Источники: TAdviser, открытые тендеры</div>
+            </div>
+
+            <hr class="report-hr">
+
+            <div class="report-block">
+              <div class="report-block-title" style="color:#3C3489;">✨ Блок 5 — AI-советник</div>
+              <div class="report-block-body">
+                <strong>Точка входа:</strong> замена SAP — окно возможностей для разговора о платформе.<br>
+                <strong>Позиционирование:</strong> делайте акцент на импортозамещении и российских сертификатах.<br>
+                <strong>На первой встрече:</strong> уточните горизонт Data Platform и бюджет AI/ML.
+              </div>
+            </div>
+
+            <div class="tg-time">09:45</div>
+          </div>
+
+        </div>
       </div>
-      <p class="example-caption">Все данные структурированы, источники указаны, готов к использованию</p>
+      <p class="example-caption">Все данные структурированы, источники указаны — готов к встрече через 4 минуты</p>
     </div>
   </div>
 </section>
